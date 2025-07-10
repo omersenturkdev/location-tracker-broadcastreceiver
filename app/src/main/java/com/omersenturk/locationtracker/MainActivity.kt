@@ -32,6 +32,11 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    override fun onPause() {
+        super.onPause()
+        unregisterReceiver(locationChangeReceiver)
+    }
+
     fun checkLocationService(){
         val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
         val isLocationEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
