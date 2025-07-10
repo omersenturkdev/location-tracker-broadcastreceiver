@@ -1,7 +1,10 @@
 package com.omersenturk.locationtracker
 
+
+import android.content.Intent
 import android.location.LocationManager
 import android.os.Bundle
+import android.provider.Settings
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -23,10 +26,11 @@ class MainActivity : AppCompatActivity() {
         val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
         val isLocationEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
         if (isLocationEnabled.not()){
-            showLocationDisabledDialog()
+            openLocationSettings()
         }
     }
-    fun showLocationDisabledDialog(){
-
+    fun openLocationSettings(){
+        val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+        startActivity(intent)
     }
 }
