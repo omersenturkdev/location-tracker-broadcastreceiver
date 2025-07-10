@@ -2,6 +2,7 @@ package com.omersenturk.locationtracker
 
 
 import android.content.Intent
+import android.content.IntentFilter
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
@@ -11,6 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
+    val locationChangeReceiver = LocationChangeReceiver()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -20,6 +22,14 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        registerReceiver(
+            locationChangeReceiver,
+            IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION)
+        )
     }
 
     fun checkLocationService(){
