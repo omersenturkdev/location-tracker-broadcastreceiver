@@ -7,6 +7,7 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
 
@@ -41,7 +42,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
     fun openLocationSettings(){
-        val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-        startActivity(intent)
+        AlertDialog.Builder(this)
+            .setTitle("Location Settings")
+            .setMessage("Location service is disabled. Do you want to go to settings?")
+            .setPositiveButton("Settings") {_,_ ->
+                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                startActivity(intent)
+            }
+            .setNegativeButton("Dismiss") {dialog,_ ->
+               dialog.dismiss()
+            }.show()
     }
 }
